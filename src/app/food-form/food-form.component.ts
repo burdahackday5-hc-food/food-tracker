@@ -2,6 +2,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Food } from '../food';
 import { GesundheitscloudService } from '../gesundheitscloud.service';
 import { MatSnackBar } from '@angular/material';
+import { Restaurant, RestaurantService } from '../restaurant.service';
+import 'rxjs/add/operator/take';
 
 enum FormState {
   EDITING = 0,
@@ -22,9 +24,12 @@ export class FoodFormComponent implements OnInit {
 
   barcodeScanner: boolean = false;
 
+  restaurantsPending: boolean = true;
+  restaurants: Restaurant[];
+
   @ViewChild('fileInput') fileInput: any;
 
-  constructor(public cloud: GesundheitscloudService, private snackBar: MatSnackBar) {
+  constructor(public cloud: GesundheitscloudService, public restaurantService: RestaurantService, private snackBar: MatSnackBar) {
     this.reset();
   }
 
@@ -64,6 +69,14 @@ export class FoodFormComponent implements OnInit {
     else {
       this.snackBar.open("Sorry, we don't know this product.")
     }
+  }
+
+  loadRestaurants() {
+    this.restaurantsPending = true;
+    this.restaurantService.getRestaurants().take(1).subscribe(rests => {
+      this.restaurants = rests;
+      this.restaurantsPending = false;
+    });
   }
 
   onSubmit() {

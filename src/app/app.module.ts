@@ -16,6 +16,7 @@ import { GesundheitscloudService } from './gesundheitscloud.service';
 import { DialogHostComponent } from './dialog-host.component';
 import { ProductBarcodeScannerComponent } from './product-barcode-scanner/product-barcode-scanner.component';
 import { HttpClientModule } from '@angular/common/http';
+import { RestaurantService } from './restaurant.service';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { HttpClientModule } from '@angular/common/http';
     ReactiveFormsModule,
   ],
   providers: [
-    GesundheitscloudService
+    GesundheitscloudService,
+    RestaurantService,
   ],
   bootstrap: [AppComponent],
   entryComponents: [DialogHostComponent],

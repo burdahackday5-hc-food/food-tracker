@@ -5,7 +5,7 @@
     <mat-expansion-panel *ngIf="!model.description">
       <mat-expansion-panel-header>
         <mat-panel-title>
-          Recent
+          Recent Lunches
         </mat-panel-title>
       </mat-expansion-panel-header>
 
@@ -31,9 +31,36 @@
       <app-product-barcode-scanner *ngIf="barcodePanel.expanded" (found)="barcodeProductFound($event)"></app-product-barcode-scanner>
     </mat-expansion-panel>
 
+
+    <mat-expansion-panel *ngIf="!model.description" #restaurantsPanel (opened)="loadRestaurants()">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          I'm at a restaurant
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+
+      <mat-progress-bar mode="indeterminate" *ngIf="restaurantsPending"></mat-progress-bar>
+
+      <mat-expansion-panel *ngFor="let restaurant of restaurants">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{ restaurant.name }}
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <mat-list-item *ngFor="let menuItem of restaurant.menu">
+          <button mat-button type="button" (click)="model = menuItem">
+            {{ menuItem.description }}
+          </button>
+        </mat-list-item>
+
+      </mat-expansion-panel>
+
+    </mat-expansion-panel>
+
     <mat-form-field>
       <input name="description" matInput placeholder="Description" [(ngModel)]="model.description">
-      <button matSuffix mat-icon-button type="button" (click)="model.description=''"><i class="material-icons">clear</i></button>
+      <button matSuffix mat-icon-button type="button" (click)="reset()"><i class="material-icons">clear</i></button>
     </mat-form-field>
 
 
