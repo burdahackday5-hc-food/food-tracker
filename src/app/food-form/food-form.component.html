@@ -18,7 +18,7 @@
       Take a picture
       <div class="pic-preview"></div>
       <div class="pic-button">
-        <button mat-fab color="accent" (click)="fileInput.click()">
+        <button mat-fab color="accent" (click)="fileInput.click()" type="button">
           <i class="material-icons">photo_camera</i>
           <input #fileInput type="file" (change)="pictureChanged($event)" hidden accept="image/*"
                  capture="environment"/>

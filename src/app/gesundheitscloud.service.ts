@@ -72,7 +72,7 @@ export class GesundheitscloudService {
 
   public getUser(): User|null {
     const u = this.hc.getUser();
-    if(u == "User not logged in") {
+    if (u === 'User not logged in') {
       return null;
     }
     return u;
