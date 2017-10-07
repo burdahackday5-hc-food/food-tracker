@@ -13,6 +13,11 @@
   margin-bottom: 15px;
 }
 
-.pic-button {
+.action-button {
   margin: 12px;
+}
+
+.pic-preview img {
+  display: block;
+  max-height: 250px;
 }

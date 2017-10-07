@@ -16,20 +16,31 @@
     </mat-checkbox>
     <div>
       Take a picture
-      <div class="pic-preview"></div>
-      <div class="pic-button">
+      <div class="action-button" [hidden]="model.picture">
         <button mat-fab color="accent" (click)="fileInput.click()" type="button">
           <i class="material-icons">photo_camera</i>
           <input #fileInput type="file" (change)="pictureChanged($event)" hidden accept="image/*"
                  capture="environment"/>
         </button>
       </div>
+      <div *ngIf="model.picture" class="pic-preview">
+        <img [src]="model.picture">
+        <mat-checkbox>
+          Post to Instagram
+        </mat-checkbox>
+      </div>
     </div>
-    <div>
+    <div *ngIf="!model.description">
       <div>Scan Barcode</div>
-      <button mat-raised-button color="accent" type="button" (click)="barcodeScanner = true" *ngIf="!barcodeScanner">Scan</button>
+      <div class="action-button">
+        <button mat-fab color="accent" type="button" (click)="barcodeScanner = true" *ngIf="!barcodeScanner">
+          <i class="material-icons">settings_remote</i>
+        </button>
+      </div>
       <app-product-barcode-scanner *ngIf="barcodeScanner" (found)="barcodeProductFound($event)"></app-product-barcode-scanner>
-      <button mat-raised-button color="accent" type="button" (click)="barcodeScanner = false" *ngIf="barcodeScanner">Stop</button>
+      <div *ngIf="barcodeScanner">
+        <button mat-raised-button color="accent" type="button" (click)="barcodeScanner = false">Stop</button>
+      </div>
     </div>
 
     <button mat-raised-button color="primary" type="submit">Submit</button>
