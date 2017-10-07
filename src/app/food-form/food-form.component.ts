@@ -51,8 +51,11 @@ export class FoodFormComponent implements OnInit {
   onSubmit() {
     this.state = FormState.SUBMITTING;
 
-    this.cloud.submit(this.model).then(
-      () => this.state = FormState.SUBMITTED
-    );
+    this.cloud.submit(this.model)
+      .then(() => this.state = FormState.SUBMITTED)
+      .catch((err) => {
+        console.log("nope", err);
+        this.state = FormState.EDITING;
+      });
   }
 }

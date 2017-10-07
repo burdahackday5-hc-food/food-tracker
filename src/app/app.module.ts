@@ -4,16 +4,19 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { FoodFormComponent } from './food-form/food-form.component';
 import {
-  MatButtonModule, MatCheckboxModule, MatFormFieldModule, MatInputModule, MatProgressBarModule, MatToolbarModule
+  MatButtonModule, MatCheckboxModule, MatDialogModule, MatFormFieldModule, MatInputModule, MatProgressBarModule,
+  MatToolbarModule
 } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import { GesundheitscloudService } from './gesundheitscloud.service';
+import { DialogHostComponent } from './dialog-host.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    FoodFormComponent
+    FoodFormComponent,
+    DialogHostComponent
   ],
   imports: [
     BrowserModule,
@@ -25,10 +28,12 @@ import { GesundheitscloudService } from './gesundheitscloud.service';
     MatCheckboxModule,
     MatButtonModule,
     MatProgressBarModule,
+    MatDialogModule,
   ],
   providers: [
     GesundheitscloudService
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [DialogHostComponent],
 })
 export class AppModule { }
