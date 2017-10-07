@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Food } from '../food';
 import { GesundheitscloudService } from '../gesundheitscloud.service';
+import { MatSnackBar } from '@angular/material';
 
 enum FormState {
   EDITING = 0,
@@ -19,8 +20,9 @@ export class FoodFormComponent implements OnInit {
   state: FormState;
   model: Food;
 
+  barcodeScanner: boolean = false;
 
-  constructor(private cloud: GesundheitscloudService) {
+  constructor(private cloud: GesundheitscloudService, private snackBar: MatSnackBar) {
     this.reset();
   }
 
@@ -45,6 +47,17 @@ export class FoodFormComponent implements OnInit {
       }, false);
 
       reader.readAsDataURL(file);
+    }
+  }
+
+  barcodeProductFound(event: string) {
+    if(event) {
+      this.snackBar.dismiss();
+      this.model.description = event;
+      this.barcodeScanner = false;
+    }
+    else {
+      this.snackBar.open("Sorry, we don't know this product.")
     }
   }
 

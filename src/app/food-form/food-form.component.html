@@ -25,6 +25,12 @@
         </button>
       </div>
     </div>
+    <div>
+      <div>Scan Barcode</div>
+      <button mat-raised-button color="accent" type="button" (click)="barcodeScanner = true" *ngIf="!barcodeScanner">Scan</button>
+      <app-product-barcode-scanner *ngIf="barcodeScanner" (found)="barcodeProductFound($event)"></app-product-barcode-scanner>
+      <button mat-raised-button color="accent" type="button" (click)="barcodeScanner = false" *ngIf="barcodeScanner">Stop</button>
+    </div>
 
     <button mat-raised-button color="primary" type="submit">Submit</button>
   </form>
