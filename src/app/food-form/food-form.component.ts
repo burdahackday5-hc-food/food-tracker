@@ -1,5 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Food } from '../food';
+import { GesundheitscloudService } from '../gesundheitscloud.service';
+
+enum FormState {
+  EDITING = 0,
+  SUBMITTING = 1,
+  SUBMITTED = 2,
+}
 
 @Component({
   selector: 'app-food-form',
@@ -8,11 +15,21 @@ import { Food } from '../food';
 })
 export class FoodFormComponent implements OnInit {
 
-  model = new Food((new Date()).getTime() / 1000, null, null, [0, 0, 0]);
+  FormState = FormState;
+  state: FormState;
+  model: Food;
 
-  constructor() { }
+
+  constructor(private cloud: GesundheitscloudService) {
+    this.reset();
+  }
 
   ngOnInit() {
+  }
+
+  reset() {
+    this.model = new Food(Math.round(Date.now()/ 1000), null, null, [0, 0, 0]);
+    this.state = FormState.EDITING;
   }
 
   pictureChanged(ev) {
@@ -29,5 +46,13 @@ export class FoodFormComponent implements OnInit {
 
       reader.readAsDataURL(file);
     }
+  }
+
+  onSubmit() {
+    this.state = FormState.SUBMITTING;
+
+    this.cloud.submit(this.model).then(
+      () => this.state = FormState.SUBMITTED
+    );
   }
 }

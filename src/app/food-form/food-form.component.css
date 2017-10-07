@@ -1,12 +1,16 @@
 .food-form {
-  display: flex;
-  flex-direction: column;
-  padding: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
-.food-form > * {
+.food-form form {
+  display: flex;
+  flex-direction: column;
+}
+
+.food-form form > * {
   width: 100%;
-  margin-top: 15px;
+  margin-bottom: 15px;
 }
 
 .pic-button {
