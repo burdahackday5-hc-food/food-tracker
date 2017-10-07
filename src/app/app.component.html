@@ -1,13 +1,13 @@
 <mat-toolbar color="primary">
   My App
   <span class="toolbar-spacer"></span>
-  <div *ngIf="!user">
+  <div *ngIf="!cloud.user.getValue()">
     <button mat-raised-button color="accent" (click)="login()">Login</button>
     <span>&nbsp;</span>
     <button mat-raised-button color="accent" (click)="registration()">Registration</button>
   </div>
-  <div *ngIf="user">
-    Logged in as <strong>{{ user.user_name }}</strong>
+  <div *ngIf="cloud.user.getValue()">
+    Logged in as <strong>{{ cloud.user.getValue().user_name }}</strong>
   </div>
 </mat-toolbar>
 

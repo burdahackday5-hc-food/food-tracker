@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Food } from './food';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { DialogHostComponent } from './dialog-host.component';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 export interface User {
   user_name: string,
@@ -18,8 +19,10 @@ export class GesundheitscloudService {
     "clientId":1
   });
 
-  constructor(public dialog: MatDialog) {
+  public readonly user: BehaviorSubject<User|null> = new BehaviorSubject(null);
 
+  constructor(public dialog: MatDialog) {
+    this.updateUser();
   }
 
   private withDialog<T>(fn: (dialogRef: MatDialogRef<DialogHostComponent>) => T) {
@@ -39,6 +42,7 @@ export class GesundheitscloudService {
           }
           else {
             dialogRef.close();
+            this.updateUser();
             resolve(success);
           }
         });
@@ -57,6 +61,7 @@ export class GesundheitscloudService {
           }
           else {
             dialogRef.close();
+            this.updateUser();
             resolve(success);
           }
         });
@@ -67,14 +72,18 @@ export class GesundheitscloudService {
 
 
   public submit(food: Food): Promise<any> {
-    return this.hc.uploadDocument(this.getUser().user_id, JSON.stringify(food));
+    if (this.user.getValue()) {
+      return this.hc.uploadDocument(this.user.getValue().user_id, JSON.stringify(food));
+    }
   }
 
-  public getUser(): User|null {
+  private updateUser(): void {
     const u = this.hc.getUser();
     if (u === 'User not logged in') {
-      return null;
+      this.user.next(null);
     }
-    return u;
+    else {
+      this.user.next(u);
+    }
   }
 }

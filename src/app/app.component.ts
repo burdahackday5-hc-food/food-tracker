@@ -7,19 +7,13 @@ import { GesundheitscloudService, User } from './gesundheitscloud.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'app';
-
-  user: User|null;
-
-  constructor(private cloud: GesundheitscloudService) {
-    this.user = cloud.getUser();
+  constructor(public cloud: GesundheitscloudService) {
   }
 
   public login() {
     this.cloud.login()
       .then((res) => {
         console.log("login success", res);
-        this.user = this.cloud.getUser();
       })
       .catch((err) => alert(err));
   }
@@ -28,7 +22,6 @@ export class AppComponent {
     this.cloud.registration()
       .then((res) => {
         console.log("login success", res);
-        this.user = this.cloud.getUser();
       })
       .catch((err) => alert(err));
   }

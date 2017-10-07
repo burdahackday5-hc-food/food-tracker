@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Food } from '../food';
 import { GesundheitscloudService } from '../gesundheitscloud.service';
 import { MatSnackBar } from '@angular/material';
@@ -22,6 +22,9 @@ export class FoodFormComponent implements OnInit {
 
   barcodeScanner: boolean = false;
 
+  @ViewChild('fileInput')
+  fileInput: any;
+
   constructor(private cloud: GesundheitscloudService, private snackBar: MatSnackBar) {
     this.reset();
   }
@@ -30,6 +33,9 @@ export class FoodFormComponent implements OnInit {
   }
 
   reset() {
+    if (this.fileInput) {
+      this.fileInput.nativeElement.value = "";
+    }
     this.model = new Food(Math.round(Date.now()/ 1000), null, null, [0, 0, 0]);
     this.state = FormState.EDITING;
   }
