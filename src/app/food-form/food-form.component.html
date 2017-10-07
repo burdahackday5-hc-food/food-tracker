@@ -2,6 +2,35 @@
   <h1>Track your meal</h1>
 
   <form *ngSwitchCase="FormState.EDITING" (ngSubmit)="onSubmit()">
+    <mat-expansion-panel *ngIf="!model.description">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Recent
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+
+
+      <mat-list>
+        <mat-list-item *ngFor="let doc of (cloud.documents|async)">
+          <button mat-button type="button" (click)="model = doc">
+            {{ doc.description }}
+          </button>
+        </mat-list-item>
+      </mat-list>
+
+    </mat-expansion-panel>
+
+
+    <mat-expansion-panel *ngIf="!model.description" #barcodePanel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Scan Barcode
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+
+      <app-product-barcode-scanner *ngIf="barcodePanel.expanded" (found)="barcodeProductFound($event)"></app-product-barcode-scanner>
+    </mat-expansion-panel>
+
     <mat-form-field>
       <input name="description" matInput placeholder="Description" [(ngModel)]="model.description">
     </mat-form-field>
@@ -30,20 +59,9 @@
         </mat-checkbox>
       </div>
     </div>
-    <div *ngIf="!model.description">
-      <div>Scan Barcode</div>
-      <div class="action-button">
-        <button mat-fab color="accent" type="button" (click)="barcodeScanner = true" *ngIf="!barcodeScanner">
-          <i class="material-icons">settings_remote</i>
-        </button>
-      </div>
-      <app-product-barcode-scanner *ngIf="barcodeScanner" (found)="barcodeProductFound($event)"></app-product-barcode-scanner>
-      <div *ngIf="barcodeScanner">
-        <button mat-raised-button color="accent" type="button" (click)="barcodeScanner = false">Stop</button>
-      </div>
-    </div>
 
     <button mat-raised-button color="primary" type="submit">Submit</button>
+
   </form>
 
   <div *ngSwitchCase="FormState.SUBMITTING">

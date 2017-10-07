@@ -22,14 +22,13 @@ export class FoodFormComponent implements OnInit {
 
   barcodeScanner: boolean = false;
 
-  @ViewChild('fileInput')
-  fileInput: any;
+  @ViewChild('fileInput') fileInput: any;
 
-  constructor(private cloud: GesundheitscloudService, private snackBar: MatSnackBar) {
+  constructor(public cloud: GesundheitscloudService, private snackBar: MatSnackBar) {
     this.reset();
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
   }
 
   reset() {
@@ -77,4 +76,6 @@ export class FoodFormComponent implements OnInit {
         this.state = FormState.EDITING;
       });
   }
+
+
 }

@@ -4,6 +4,12 @@ import { Food } from './food';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { DialogHostComponent } from './dialog-host.component';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/fromPromise';
+import 'rxjs/add/observable/forkJoin';
+//import 'rxjs/add/observable/map';
+import 'rxjs/add/observable/zip';
+
 
 export interface User {
   user_name: string,
@@ -20,9 +26,23 @@ export class GesundheitscloudService {
   });
 
   public readonly user: BehaviorSubject<User|null> = new BehaviorSubject(null);
+  public readonly documents: BehaviorSubject<Food[]> = new BehaviorSubject([]);
 
   constructor(public dialog: MatDialog) {
     this.updateUser();
+    /*this.user.subscribe(user => {
+        Observable.fromPromise(this.hc.searchRecords({ user_ids: [user.user_id] }))
+          .map((recs: any[]) => Observable.zip(recs.map(rec =>
+            this.hc.downloadDocument(user.user_id, rec.record_id)))
+          )
+          .map(recs => recs.map(r => JSON.parse(r)))
+          .subscribe(recs => this.documents.next(recs));
+    });*/
+    this.documents.next([
+      { date: 0, description: "Big Burger", answers: [0,0,0], picture: null },
+      { date: 0, description: "Small Salad", answers: [1,1,0], picture: null },
+      { date: 0, description: "Jogurt", answers: [1,1,1], picture: null },
+    ]);
   }
 
   private withDialog<T>(fn: (dialogRef: MatDialogRef<DialogHostComponent>) => T) {
