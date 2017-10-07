@@ -33,7 +33,10 @@
 
     <mat-form-field>
       <input name="description" matInput placeholder="Description" [(ngModel)]="model.description">
+      <button matSuffix mat-icon-button type="button" (click)="model.description=''"><i class="material-icons">clear</i></button>
     </mat-form-field>
+
+
     <mat-checkbox name="answer0" [checked]="model.answers[0] == 1" (change)="model.answers[0] = $event.checked ? 1:0">
       No carbohydrates
     </mat-checkbox>
