@@ -1,0 +1,23 @@
+<div class="food-form">
+  <h1>Track your meal</h1>
+  <mat-form-field>
+    <input matInput placeholder="Description" [(ngModel)]="model.description">
+  </mat-form-field>
+  <mat-checkbox [checked]="model.answers[0] == 1" (change)="model.answers[0] = $event.checked ? 1:0">No carbohydrates</mat-checkbox>
+  <mat-checkbox [checked]="model.answers[1] == 1" (change)="model.answers[1] = $event.checked ? 1:0">Small portion</mat-checkbox>
+  <mat-checkbox [checked]="model.answers[2] == 1" (change)="model.answers[2] = $event.checked ? 1:0">Low sodium</mat-checkbox>
+  <div>
+    Take a picture
+    <div class="pic-preview"></div>
+    <div class="pic-button">
+      <button mat-fab color="accent" (click)="fileInput.click()">
+        <i class="material-icons">photo_camera</i>
+        <input #fileInput type="file" (change)="pictureChanged($event)" hidden accept="image/*" capture="environment" />
+      </button>
+    </div>
+  </div>
+
+  <button mat-raised-button color="primary" type="submit">Submit</button>
+
+  <pre>{{ model | json }}</pre>
+</div>

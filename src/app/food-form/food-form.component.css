@@ -1,0 +1,14 @@
+.food-form {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.food-form > * {
+  width: 100%;
+  margin-top: 15px;
+}
+
+.pic-button {
+  margin: 12px;
+}
