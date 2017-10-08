@@ -38,8 +38,8 @@ export class ProductBarcodeScannerComponent implements OnInit, OnDestroy {
       .fromSource({
         target: this.element.nativeElement,
         constraints: {
-          width: 600,
-          height: 600,
+          width: this.width,
+          height: this.height,
           facingMode: "environment"
         }
       }).addEventListener('detected', (result) => {
