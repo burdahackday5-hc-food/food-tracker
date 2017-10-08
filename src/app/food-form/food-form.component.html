@@ -90,6 +90,32 @@
       </div>
     </div>
 
+
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Detailed Nutrition Information
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+
+      <mat-form-field>
+        <input name="energyValue" type="number" matInput placeholder="Energy Value" [(ngModel)]="model.energyValue">
+        <span matSuffix>kJ</span>
+      </mat-form-field>
+      <mat-form-field>
+        <input name="fat" type="number" matInput placeholder="Fat" [(ngModel)]="model.fat">
+        <span matSuffix>g</span>
+      </mat-form-field>
+      <mat-form-field>
+        <input name="sugar" type="number" matInput placeholder="Sugar" [(ngModel)]="model.sugar">
+        <span matSuffix>g</span>
+      </mat-form-field>
+      <mat-form-field>
+        <input name="salt" type="number" matInput placeholder="Salt" [(ngModel)]="model.salt">
+        <span matSuffix>g</span>
+      </mat-form-field>
+    </mat-expansion-panel>
+
     <button mat-raised-button color="primary" type="submit">Submit</button>
 
   </form>
