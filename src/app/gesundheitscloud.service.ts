@@ -92,9 +92,11 @@ export class GesundheitscloudService {
 
 
   public submit(food: Food): Promise<any> {
-    if (this.user.getValue()) {
-      return this.hc.uploadDocument(this.user.getValue().user_id, JSON.stringify(food));
+    const user = this.user.getValue();
+    if (user) {
+      return this.hc.uploadDocument(user.user_id, JSON.stringify(food));
     }
+    return Promise.reject("not logged in");
   }
 
   private updateUser(): void {
