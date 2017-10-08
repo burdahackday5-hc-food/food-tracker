@@ -40,7 +40,7 @@ export class FoodFormComponent implements OnInit {
     if (this.fileInput) {
       this.fileInput.nativeElement.value = "";
     }
-    this.model = new Food(Math.round(Date.now()/ 1000), null, null, [0, 0, 0]);
+    this.model = new Food(0, null, null, [0, 0, 0]);
     this.state = FormState.EDITING;
   }
 
@@ -81,6 +81,7 @@ export class FoodFormComponent implements OnInit {
 
   onSubmit() {
     this.state = FormState.SUBMITTING;
+    this.model.date = Math.round(Date.now() / 1000);
 
     this.cloud.submit(this.model)
       .then(() => this.state = FormState.SUBMITTED)
